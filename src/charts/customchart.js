@@ -46,10 +46,14 @@ export default class CustomChart extends Component {
       },
       axisX: {
         onlyInteger: true,
-        labelInterpolationFnc: function (value) {
-          return (parseInt(value, 10) % 2 === 0) ? value : null
-        }
+        'labelInterpolationFnc': function (value) {
+          var syncer = this.syncer
+          var timestamp = parseInt((syncer.last - (syncer.interval * value)) / 1000, 10)
+          return ((value + 1) % 5 === 0) ?
+            moment.unix(timestamp).format('mm:ss') : (value === 0 ? ' ' : null)
+        }.bind(this)
       },
+
       axisY: {
         type: Chartist.AutoScaleAxis,
         onlyInteger: true,

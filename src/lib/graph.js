@@ -16,11 +16,6 @@ export default class Graph extends Component {
     this.state = {}
   }
 
-  shouldComponentUpdate () {
-    // HERE
-    return true
-  }
-
   componentDidUpdate () {
     this.updateChart(this.props)
   }
@@ -29,20 +24,16 @@ export default class Graph extends Component {
     if (this.chartist) {
       try {
         this.chartist.detach()
-      } catch (err) {
-      }
+      } catch (e) {}
     }
   }
 
   componentDidMount () {
-    return this.updateChart(this.props)
+    this.updateChart(this.props)
   }
 
   updateChart (config) {
-    let type = config.type
-    let data = config.data
-    let options = config.options || {}
-    let responsiveOptions = config.responsiveOptions || []
+    let { data, type='Line', options={}, responsiveOptions=[] } = config
     let event
 
     if (this.chartist) {

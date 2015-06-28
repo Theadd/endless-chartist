@@ -181,7 +181,9 @@ var Settings = (function () {
             },
             'axisX': {
               'labelInterpolationFnc': function (value, syncer) {
-                return (value % 5 === 0) ? value : null
+                var timestamp = parseInt((syncer.last - (syncer.interval * value)) / 1000, 10)
+                return (timestamp % 10 === 0) ?
+                  moment.unix(timestamp).format('mm:ss') : (value === 0 || value === syncer.points - 1) ? ' ' : null
               }
             },
             'axisY': {

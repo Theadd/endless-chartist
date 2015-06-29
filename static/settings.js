@@ -8,9 +8,17 @@ var Settings = (function () {
     'providers': {
       'series01': {
         'initialize': function (self) {
+          // Load previous data
+          self.add({
+            points: Array.from({ length: 300 }, function () { return parseInt(Math.random() * 11, 10) }),
+            interval: 1000
+          })
+          // Add new data points
           setInterval(function () {
             this.add({
-              points: [parseInt(Math.random() * 11, 10)],
+              points: [
+                parseInt(Math.random() * 11, 10)
+              ],
               interval: 1000
             })
           }.bind(self), 1000)
@@ -18,18 +26,20 @@ var Settings = (function () {
       },
       'series02': {
         'initialize': function (self) {
+          // Load previous data
+          self.add({
+            points: Array.from({ length: 300 }, function () { return parseInt(Math.random() * 4, 10) + 2 }),
+            interval: 1000
+          })
+          // Add new data points
           setInterval(function () {
             this.add({
               points: [
-                parseInt(Math.random() * 6, 10),
-                parseInt(Math.random() * 6, 10),
-                parseInt(Math.random() * 3, 10) + 2,
-                parseInt(Math.random() * 3, 10) + 2,
-                parseInt(Math.random() * 3, 10) + 2
+                parseInt(Math.random() * 4, 10) + 2
               ],
               interval: 1000
             })
-          }.bind(self), 5000)
+          }.bind(self), 1000)
         }
       }
     },

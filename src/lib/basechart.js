@@ -8,10 +8,6 @@ export default class BaseChart {
     this.syncer = syncer !== null ? syncer : new Syncer({})
   }
 
-  add (serieName, serie) {
-    this._series.set(serieName, serie)
-  }
-
   get series () {
     return [...this._series].map(([name, s]) => ({ name, data: s.use(this._syncer)}))
   }
@@ -34,10 +30,22 @@ export default class BaseChart {
     }
   }
 
+  get pause () {
+    return this._pause
+  }
+
+  set pause (value) {
+    this._pause = Boolean(value)
+  }
+
+  add (serieName, serie) {
+    this._series.set(serieName, serie)
+  }
+
   updateTo (graph, interval=1000) {
     this._graph = graph
     setInterval(function () {
-      this.refresh(true)
+      !this.pause && this.refresh(true)
     }.bind(this), interval)
   }
 
